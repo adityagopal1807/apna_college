@@ -1,0 +1,79 @@
+```bash
+# ================================
+# TERMINAL COMMANDS
+# ================================
+
+# Navigation Commands
+pwd
+ls
+cd folderName
+cd ..
+
+# File & Folder Commands
+mkdir project
+touch index.html
+rm file.txt
+rmdir folderName
+cp old.txt new.txt
+mv old.txt new.txt
+
+# File Viewing Commands
+cat file.txt
+clear
+
+# Node Terminal
+node app.js
+
+
+# ================================
+# GIT COMMANDS
+# ================================
+
+# Git Setup
+git --version
+git config --global user.name "Aditya"
+git config --global user.email "abc@gmail.com"
+git config --list
+
+# Repository
+git init
+
+# Basic Git Commands
+git status
+git add .
+git add app.js
+git commit -m "first commit"
+git log
+
+# Branching
+git branch feature
+git checkout feature
+git checkout -b feature
+git merge feature
+
+# Undo Changes
+git restore app.js
+git reset
+
+# .gitignore
+touch .gitignore
+
+
+# ================================
+# GITHUB COMMANDS
+# ================================
+
+# Connect Local Repo with GitHub
+git remote add origin URL
+
+# GitHub Commands
+git push origin main
+git pull origin main
+git clone URL
+
+# GitHub Workflow
+git clone URL
+git add .
+git commit -m "message"
+git push origin main
+```

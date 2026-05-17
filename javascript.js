@@ -1363,3 +1363,402 @@ async function demo3(){
   await getNum();
 
 }
+
+// ======================================
+// 45. APIs & AJAX
+// ======================================
+
+
+// ======================================
+// JSON
+// JSON String
+// ======================================
+
+let jsonRes =
+'{"fact":"Approximately 1/3 of cat owners think their pets can read minds.","length":78}';
+
+
+// ======================================
+// JSON.parse()
+// JSON String -> JS Object
+// ======================================
+
+let validRes = JSON.parse(jsonRes);
+
+console.log(validRes.fact);
+
+
+// ======================================
+// JSON.stringify()
+// JS Object -> JSON String
+// ======================================
+
+let student = {
+  name: "shradha",
+  marks: 95,
+};
+
+let data = JSON.stringify(student);
+
+console.log(data);
+
+
+
+// ======================================
+// FETCH API
+// Basic fetch request
+// ======================================
+
+let url = "https://catfact.ninja/fact";
+
+fetch(url)
+
+.then((res) => {
+
+  console.log(res);
+
+  return res.json();
+
+})
+
+.then((data) => {
+
+  console.log(data.fact);
+
+})
+
+.catch((err) => {
+
+  console.log("ERROR - ", err);
+
+});
+
+
+
+// ======================================
+// FETCH CHAINING
+// Multiple fetch requests
+// ======================================
+
+fetch(url)
+
+.then((res) => {
+
+  return res.json();
+
+})
+
+.then((data) => {
+
+  console.log(data.fact);
+
+  return fetch(url);
+
+})
+
+.then((res) => {
+
+  return res.json();
+
+})
+
+.then((data2) => {
+
+  console.log(data2.fact);
+
+})
+
+.catch((err) => {
+
+  console.log("ERROR - ", err);
+
+});
+
+
+
+// ======================================
+// ASYNC AWAIT WITH FETCH
+// Cleaner async code
+// ======================================
+
+async function getFacts() {
+
+  try {
+
+    let res = await fetch(url);
+
+    let data = await res.json();
+
+    console.log(data.fact);
+
+  }
+
+  catch (e) {
+
+    console.log("error - ", e);
+
+  }
+
+}
+
+
+
+// ======================================
+// MULTIPLE FETCH CALLS
+// ======================================
+
+async function getFacts2() {
+
+  try {
+
+    let res = await fetch(url);
+
+    let data = await res.json();
+
+    console.log(data.fact);
+
+    let res2 = await fetch(url);
+
+    let data2 = await res2.json();
+
+    console.log(data2.fact);
+
+  }
+
+  catch (e) {
+
+    console.log("error - ", e);
+
+  }
+
+  console.log("bye");
+
+}
+
+
+
+// ======================================
+// AXIOS
+// GET request using axios
+// ======================================
+
+async function getFactsAxios() {
+
+  try {
+
+    let res = await axios.get(url);
+
+    console.log(res.data.fact);
+
+  }
+
+  catch (e) {
+
+    console.log("error - ", e);
+
+  }
+
+}
+
+
+
+// ======================================
+// AXIOS WITH HEADERS
+// Joke API example
+// ======================================
+
+const jokeUrl = "https://icanhazdadjoke.com/";
+
+async function getJokes() {
+
+  try {
+
+    const config = {
+      headers: {
+        Accept: "application/json",
+      },
+    };
+
+    let res = await axios.get(jokeUrl, config);
+
+    console.log(res.data);
+
+  }
+
+  catch (err) {
+
+    console.log(err);
+
+  }
+
+}
+
+
+
+// ======================================
+// COLLEGE SEARCH API
+// Fetch colleges using country name
+// ======================================
+
+let collegeUrl =
+"http://universities.hipolabs.com/search?name=";
+
+let btn = document.querySelector("button");
+
+btn.addEventListener("click", async () => {
+
+  let country =
+    document.querySelector("input").value;
+
+  console.log(country);
+
+  let colArr = await getColleges(country);
+
+  console.log(colArr);
+
+  show(colArr);
+
+});
+
+
+
+async function getColleges(country) {
+
+  try {
+
+    let res =
+      await axios.get(collegeUrl + country);
+
+    return res.data;
+
+  }
+
+  catch (e) {
+
+    console.log("error : ", e);
+
+    return [];
+
+  }
+
+}
+
+
+
+// ======================================
+// SHOW DATA ON PAGE
+// Display colleges in list
+// ======================================
+
+function show(colArr) {
+
+  let list = document.querySelector("#list");
+
+  list.innerText = "";
+
+  for (col of colArr) {
+
+    console.log(col.name);
+
+    let li = document.createElement("li");
+
+    li.innerText = col.name;
+
+    list.appendChild(li);
+
+  }
+
+}
+
+
+
+// ======================================
+// RANDOM DOG IMAGE API
+// Display image on button click
+// ======================================
+
+let imgBtn = document.querySelector("#dogBtn");
+
+let dogUrl =
+"https://dog.ceo/api/breeds/image/random";
+
+imgBtn.addEventListener("click", async () => {
+
+  let link = await getImage();
+
+  let img = document.querySelector("#result");
+
+  img.setAttribute("src", link);
+
+});
+
+
+
+async function getImage() {
+
+  try {
+
+    let res = await axios.get(dogUrl);
+
+    return res.data.message;
+
+  }
+
+  catch (e) {
+
+    console.log("error - ", e);
+
+    return "/";
+
+  }
+
+}
+
+
+
+// ======================================
+// HTTP METHODS
+// ======================================
+
+// GET    -> Fetch data
+// POST   -> Send data
+// PUT    -> Update data
+// DELETE -> Delete data
+
+
+
+// ======================================
+// REST APIs
+// APIs following REST rules
+// Uses HTTP methods
+// ======================================
+
+
+
+// ======================================
+// HANDLING RESPONSES
+// ======================================
+
+// Fetch
+// let data = await res.json();
+
+// Axios
+// console.log(res.data);
+
+
+
+// ======================================
+// ERROR HANDLING
+// ======================================
+
+try {
+
+  console.log("API CALL");
+
+}
+
+catch (err) {
+
+  console.log(err);
+
+}
